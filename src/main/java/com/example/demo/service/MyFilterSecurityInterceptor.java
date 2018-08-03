@@ -15,12 +15,21 @@ import org.springframework.security.access.intercept.AbstractSecurityInterceptor
 import org.springframework.security.access.intercept.InterceptorStatusToken;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.stereotype.Service;
+
+/**
+ * 自定义拦截器，添加决策管理器以及资源信息
+ *
+ */
+
 @Service
 public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
 
 	@Autowired
 	private MyInvocationSecurityMetadataSourceService myFilterSecurityInterceptor;
 
+	/**
+	 * 设置角色认证类
+	 */
 	@Autowired
 	public void setMyAccessDecisionManager(MyAccessDecisionManager myAccessDecisionManager) {
 		super.setAccessDecisionManager(myAccessDecisionManager);
@@ -37,7 +46,9 @@ public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor imp
 		FilterInvocation fi = new FilterInvocation(request, response, chain);
 		invoke(fi);
 	}
-
+	/**
+	 * 拦截器执行完，后续拦截器继续执行
+	 */
 	private void invoke(FilterInvocation fi) throws IOException, ServletException {
 		InterceptorStatusToken token = super.beforeInvocation(fi);
 		try {
@@ -56,7 +67,9 @@ public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor imp
 	public Class<?> getSecureObjectClass() {
 		return FilterInvocation.class;
 	}
-
+	/**
+	 * 资源与角色对应的
+	 */
 	@Override
 	public SecurityMetadataSource obtainSecurityMetadataSource() {
 		  return this.myFilterSecurityInterceptor;

@@ -10,7 +10,10 @@ import org.springframework.security.authentication.InsufficientAuthenticationExc
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
-
+/**
+ * 角色认证
+ * 将用户的角色与请求的资源的角色进行匹配，并决定用户能不能请求该资源
+ */
 @Service
 public class MyAccessDecisionManager implements AccessDecisionManager {
 

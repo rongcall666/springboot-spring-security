@@ -19,13 +19,19 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.NodesRepository;
 import com.example.demo.entity.Nodes;
-
+/**
+ *获取所有节点所需要的请求，并将资源与所需角色内容放入Security中保存，当第一执行 
+ *认证拦截时，被调用，
+ *之后当请求来了之后，根据请求的路径，给出该请求所需要的角色
+ */
 @Service
 public class MyInvocationSecurityMetadataSourceService implements FilterInvocationSecurityMetadataSource {
 	@Autowired
 	private NodesRepository nodesRepository;
 	private HashMap<String, Collection<ConfigAttribute>> map = null;
-
+	/**
+	 * 根据请求的url去获取该请求所需要的角色
+	 */
 	public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
 		if (map == null)
 			loadResourceDefine();
@@ -41,7 +47,9 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
 		}
 		return null;
 	}
-
+	/**
+	 * 第一次加载时，将所有的资源信息加载入并保存
+	 */
 	private void loadResourceDefine() {
 		ConfigAttribute cfg;
 		List<Nodes> list = nodesRepository.findAll();

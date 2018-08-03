@@ -12,12 +12,18 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 
 import com.example.demo.service.CustomUserService;
 import com.example.demo.service.MyFilterSecurityInterceptor;
-
+/**
+ *	security配置 
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private MyFilterSecurityInterceptor myFilterSecurityInterceptor;
+	/**
+	 * 设置所需要的拦截资源，登录页面以及使用的拦截器栈等
+	 */
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and()
 				.logout().permitAll();

@@ -19,6 +19,12 @@ import com.example.demo.dao.UsersRepository;
 import com.example.demo.entity.Nodes;
 import com.example.demo.entity.Roles;
 import com.example.demo.entity.Users;
+
+/**
+ *	验证用户名密码，并获取用户的角色，并保存用户信息 
+ *
+ */
+
 @Service
 public class CustomUserService implements UserDetailsService{
 	@Autowired
